@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}" dir="{{ default `ltr` .Language.LanguageDirection }}">
+    <head>
+        {{- partial "head/head.html" . -}}
+        {{- block "head" . -}}{{ end }}
+        <style>
+         .lang {
+             width:90%;
+             position: absolute !important;
+             text-align: right !important;
+             display: block;
+             padding-top: 10px;
+         }
+
+        </style>
+    </head>
+    <body class="{{ block `body-class` . }}{{ end }}">
+        {{- partial "head/colorScheme" . -}}
+
+        {{/* The container is wider when there's any activated widget */}}
+        {{- $hasWidget := false -}}
+        {{- range .Site.Params.widgets -}}
+            {{- if gt (len .) 0 -}}
+                {{- $hasWidget = true -}}
+            {{- end -}}
+        {{- end -}}
+        <div class="container main-container flex on-phone--column {{ if $hasWidget }}extended{{ else }}compact{{ end }}">
+
+            {{ if not .IsHome }}
+            {{ if and (.IsTranslated) (.Site.Params.article.isTranslatedEx)  }}
+            <footer class="article-translations lang">
+                {{ partial "helper/icon" "language" }}
+                <div>
+                    {{ range .Translations }}
+                    <a href="{{ .Permalink }}" class="link">{{ .Language.LanguageName }}</a>
+                    {{ end }}
+                </div>
+            </footer>
+            {{ end }}
+            {{ end }}
+
+            {{- block "left-sidebar" . -}}
+                {{ partial "sidebar/left.html" . }}
+            {{- end -}}
+            <main class="main full-width">
+                {{- block "main" . }}{{- end }}
+            </main>
+            {{- block "right-sidebar" . -}}{{ end }}
+        </div>
+        {{ partial "footer/include.html" . }}
+    </body>
+</html>
