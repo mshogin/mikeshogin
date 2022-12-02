@@ -125,13 +125,13 @@ menu:
 
         - identifier: linkedin
           name: Linkedin
-          url: https://linkedin.com/mshogin
+          url: https://linkedin.com/in/mikeshogin
           params:
               icon: brand-linkedin
 
         - identifier: telegram
           name: Telegram
-          url: https://t.me/mshogin
+          url: https://t.me/mikeshogin
           params:
               icon: brand-telegram
 
